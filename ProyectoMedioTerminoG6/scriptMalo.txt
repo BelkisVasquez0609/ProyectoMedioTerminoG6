@@ -1,0 +1,20 @@
+- host:all
+- become: true
+  tasks: 
+   names: crear directorio
+   apt:mkdir \Documentos\directorio1
+
+   name: crear archivo de texto en directorio
+   apt: new-Item \Documentos\directorio1\archivo1.txt 
+  
+   name: escribir texto dentro del archivo
+   apt: set-content \Documentos\directorio1\archivo1.txt 'Holaaaaa, estoy escribiendooo'
+
+   name: mover archivo a otro directorio
+   apt: MOVE \Documentos\directorio1\archivo1.txt \Documentos\archivo1.txt
+
+   name: eliminar archivo
+   apt: DEL \Documentos\archivo1.txt
+  
+   name: eliminar directorio
+   apt: RD \Documentos\directorio1

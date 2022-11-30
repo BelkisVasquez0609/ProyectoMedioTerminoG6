@@ -129,14 +129,14 @@ namespace ProyectoMedioTerminoG6
 				string host = (string)Visit(context.host());
 				string? become = (string?)context.become()?.TEXT().GetText();
 				infoGeneral info = new infoGeneral(host, become);
-				List<task> task = (List<task>)Visit(context.task_lb());
+				List<task> task = (List<task>)Visit(context.tasks_lb());
 
 				outPut.Add(info.ObtenerOutput());
 				foreach (var task_tree in task)
                 {
 					var out_errors = task_tree.ObtenerOutput();
 					outPut.Add(out_errors);
-                    if (task_tree.resuldato.Contains("Error"))
+                    if (task_tree.resultado.Contains("Error"))
                     {
 						break;
                     }
@@ -145,7 +145,7 @@ namespace ProyectoMedioTerminoG6
             }
             catch (Exception ex)
             {
-				Console.WriteLine("Method VisitScript Exception - " + ex.Message)
+				Console.WriteLine("Method VisitScript Exception - " + ex.Message);
             }
 			return new Object();
 		}

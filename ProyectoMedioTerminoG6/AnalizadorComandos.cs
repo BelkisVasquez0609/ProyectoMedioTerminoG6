@@ -84,6 +84,12 @@ namespace ProyectoMedioTerminoG6
 	}
 	internal class AnalizadorComandos : ProyectoBaseVisitor<object>
 	{
+		List<string> outPut = new List<string>();
+		public List<string> Output
+        {
+			get => outPut;
+
+		}
 		public override object VisitHost([NotNull] ProyectoParser.HostContext context) //listo
 		{
 			return context.TEXT().GetText();
@@ -101,7 +107,12 @@ namespace ProyectoMedioTerminoG6
 		}
 		public override object VisitTasks_lb([NotNull] ProyectoParser.Tasks_lbContext context)
 		{
-			return base.VisitTasks_lb(context);
+			List<task> tasks_list = new List<task>();
+			foreach (var task_tree in context.tasks())
+			{
+				tasks_list.Add((task)Visit(task_tree));
+			}
+			return tasks_list;
 		}
 		public override object VisitApt([NotNull] ProyectoParser.AptContext context)//listo
 		{
@@ -113,12 +124,48 @@ namespace ProyectoMedioTerminoG6
 
 		public override object VisitScript([NotNull] ProyectoParser.ScriptContext context)
 		{
-			return base.VisitScript(context);
+            try
+            {
+				string host = (string)Visit(context.host());
+				string? become = (string?)context.become()?.TEXT().GetText();
+				infoGeneral info = new infoGeneral(host, become);
+				List<task> task = (List<task>)Visit(context.task_lb());
+
+				outPut.Add(info.ObtenerOutput());
+				foreach (var task_tree in task)
+                {
+					var out_errors = task_tree.ObtenerOutput();
+					outPut.Add(out_errors);
+                    if (task_tree.resuldato.Contains("Error"))
+                    {
+						break;
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+				Console.WriteLine("Method VisitScript Exception - " + ex.Message)
+            }
+			return new Object();
 		}
 
 		public override object VisitProgram([NotNull] ProyectoParser.ProgramContext context)
 		{
-			return base.VisitProgram(context);
+			string insertResult = "";
+
+            try
+            {
+				base.VisitProgram(context);
+				foreach(var i in outPut)
+					insertResult+= i + "\n";
+            }
+            catch (Exception ex)
+            {
+
+				Console.WriteLine("Method VisitProgram exception - " + ex.Message);
+			}
+			return insertResult;
 		}
 	}
 }

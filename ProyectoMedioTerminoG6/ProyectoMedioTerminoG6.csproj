@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.9.2" />
+    <PackageReference Include="Cake.Powershell" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

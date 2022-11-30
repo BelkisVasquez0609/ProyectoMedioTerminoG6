@@ -84,24 +84,31 @@ namespace ProyectoMedioTerminoG6
 	}
 	internal class AnalizadorComandos : ProyectoBaseVisitor<object>
 	{
-		public override object VisitApt([NotNull] ProyectoParser.AptContext context)
+		public override object VisitHost([NotNull] ProyectoParser.HostContext context) //listo
 		{
-			return base.VisitApt(context);
+			return context.TEXT().GetText();
 		}
-
-		public override object VisitHost([NotNull] ProyectoParser.HostContext context)
+		public override object VisitName([NotNull] ProyectoParser.NameContext context) //listo
 		{
-			return base.VisitHost(context);
+			return context.TEXT().GetText();
 		}
-
-		public override object VisitName([NotNull] ProyectoParser.NameContext context)
+		public override object VisitTasks([NotNull] ProyectoParser.TasksContext context) //listo
 		{
-			return base.VisitName(context);
+			string Name = (string)Visit(context.name());
+			string apt = (string)Visit(context.apt());
+			task tasks = new task(Name, apt);
+			return tasks;
 		}
-
-		public override object VisitProgram([NotNull] ProyectoParser.ProgramContext context)
+		public override object VisitTasks_lb([NotNull] ProyectoParser.Tasks_lbContext context)
 		{
-			return base.VisitProgram(context);
+			return base.VisitTasks_lb(context);
+		}
+		public override object VisitApt([NotNull] ProyectoParser.AptContext context)//listo
+		{
+			string comando = context.command().GetText();
+			string Direccion = context.DIR().GetText();
+			string ComandReal = comando + ' ' + Direccion;
+			return ComandReal;
 		}
 
 		public override object VisitScript([NotNull] ProyectoParser.ScriptContext context)
@@ -109,14 +116,9 @@ namespace ProyectoMedioTerminoG6
 			return base.VisitScript(context);
 		}
 
-		public override object VisitTasks([NotNull] ProyectoParser.TasksContext context)
+		public override object VisitProgram([NotNull] ProyectoParser.ProgramContext context)
 		{
-			return base.VisitTasks(context);
-		}
-
-		public override object VisitTasks_lb([NotNull] ProyectoParser.Tasks_lbContext context)
-		{
-			return base.VisitTasks_lb(context);
+			return base.VisitProgram(context);
 		}
 	}
 }

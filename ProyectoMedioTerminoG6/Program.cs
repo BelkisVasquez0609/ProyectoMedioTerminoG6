@@ -57,8 +57,8 @@ do
 } while (!todoBien);
 
 AnalizadorComandos scrip_analizador = new AnalizadorComandos();
-Console.WriteLine("**HOLA, SOMOS EL GRUPO 6* \n" +
-                  "TASK [Iniciando proceso] ** \n");
+Console.WriteLine("****************************************HOLA, SOMOS EL GRUPO 6********************************************* \n" +
+                  "TASK [Iniciando proceso] ********************************************************************************** \n");
 Console.WriteLine(scrip_analizador.Visit(tree));
 
 

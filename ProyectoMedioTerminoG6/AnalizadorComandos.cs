@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Antlr4.Runtime.Misc;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -81,7 +82,41 @@ namespace ProyectoMedioTerminoG6
 				$"El resultado de la operación fué: {result}  \n");
 		}
 	}
-	internal class AnalizadorComandos
+	internal class AnalizadorComandos : ProyectoBaseVisitor<object>
 	{
+		public override object VisitApt([NotNull] ProyectoParser.AptContext context)
+		{
+			return base.VisitApt(context);
+		}
+
+		public override object VisitHost([NotNull] ProyectoParser.HostContext context)
+		{
+			return base.VisitHost(context);
+		}
+
+		public override object VisitName([NotNull] ProyectoParser.NameContext context)
+		{
+			return base.VisitName(context);
+		}
+
+		public override object VisitProgram([NotNull] ProyectoParser.ProgramContext context)
+		{
+			return base.VisitProgram(context);
+		}
+
+		public override object VisitScript([NotNull] ProyectoParser.ScriptContext context)
+		{
+			return base.VisitScript(context);
+		}
+
+		public override object VisitTasks([NotNull] ProyectoParser.TasksContext context)
+		{
+			return base.VisitTasks(context);
+		}
+
+		public override object VisitTasks_lb([NotNull] ProyectoParser.Tasks_lbContext context)
+		{
+			return base.VisitTasks_lb(context);
+		}
 	}
 }
